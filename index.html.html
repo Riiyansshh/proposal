@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Be My Best Friend?</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to bottom, #ffe6f2, #ffffff);
+            color: #333;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden; /* Prevent scrollbars from animations */
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #d63384;
+        }
+        p {
+            font-size: 1.2em;
+            line-height: 1.6;
+            max-width: 600px;
+            margin: 20px auto;
+        }
+        button {
+            background-color: #d63384;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            margin: 10px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #b02a6a;
+        }
+        .hidden {
+            display: none;
+        }
+        .quote {
+            font-style: italic;
+            font-size: 1.1em;
+            color: #666;
+            margin-top: 20px;
+        }
+        /* Animations for Yes Page: Floating hearts and flowers */
+        .floating-hearts {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        .heart, .flower {
+            position: absolute;
+            font-size: 2em;
+            animation: float 6s linear infinite;
+        }
+        .heart:nth-child(odd) { animation-delay: 0s; }
+        .heart:nth-child(even) { animation-delay: 2s; }
+        .flower:nth-child(odd) { animation-delay: 1s; }
+        .flower:nth-child(even) { animation-delay: 3s; }
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+        /* Sad emojis for No Page */
+        .sad-emojis {
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 3em;
+            animation: fadeIn 2s ease-in-out;
+            z-index: -1;
+        }
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        /* Final confirmation on Yes */
+        .final-yes {
+            color: #28a745;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div id="main-page">
+        <h1>Will You Be My Best Friend?</h1>
+        <p>Hey Mahi, I've been thinking about this a lot. What do you say?</p>
+        <button onclick="chooseYes()">Yes</button>
+        <button onclick="chooseNo()">No</button>
+    </div>
+
+    <div id="yes-page" class="hidden">
+        <div class="floating-hearts">
+            <div class="heart" style="left: 10%;">❤️</div>
+            <div class="flower" style="left: 20%;">🌸</div>
+            <div class="heart" style="left: 30%;">💖</div>
+            <div class="flower" style="left: 40%;">🌹</div>
+            <div class="heart" style="left: 50%;">💕</div>
+            <div class="flower" style="left: 60%;">🌷</div>
+            <div class="heart" style="left: 70%;">💗</div>
+            <div class="flower" style="left: 80%;">🌺</div>
+            <div class="heart" style="left: 90%;">💓</div>
+            <div class="flower" style="left: 15%;">🌻</div>
+        </div>
+        <h1>Yes! You're My Best Friend Now</h1>
+        <p>
+            We met on June 2nd, 2024, and from that very first moment, you brought an explosion of joy, light, and pure enjoyment into my life. You're the one I truly want as my best friend—the person I'd leave anyone behind for, just to be by your side. You've made me fall for you in ways I never imagined, with your kindness, your smile, and the way you light up every room. You're not less than a princess; you're a queen in my world, graceful and unforgettable.<br><br>
+            Every day with you feels like a new adventure, filled with laughter that echoes in my heart and memories that I'll cherish forever. Your presence is my favorite part of the day, turning ordinary moments into something magical. I promise to be there for you through thick and thin, sharing secrets, dreams, and endless fun. You're the friend I've always dreamed of, and I'm so grateful to have you.<br><br>
+            As the saying goes, "A true friend is someone who is there for you when they'd rather be anywhere else." Let's make countless memories together, Mahi—you and me, best friends forever.
+        </p>
+        <p class="quote">— A beautiful quote to seal our friendship</p>
+        <div id="comfort-question">
+            <p>Are you comfortable with this?</p>
+            <button onclick="comfortYes()">Yes</button>
+            <button onclick="comfortNo()">No</button>
+        </div>
+        <div id="final-yes" class="hidden">
+            <p class="final-yes">Awesome! I'm so excited to be your best friend. Let's chat soon! 😊</p>
+        </div>
+        <div id="comfort-no" class="hidden">
+            <p>That's okay, Mahi. I understand. Maybe we can take it slow? <button onclick="backToMain()">Back to Start</button></p>
+        </div>
+    </div>
+
+    <div id="no-page" class="hidden">
+        <div class="sad-emojis">
+            😢 😔 😞 😭
+        </div>
+        <h1>I'm Sorry</h1>
+        <p>That's okay, Mahi. I understand. Maybe we can try again sometime? What do you say now?</p>
+        <button onclick="tryAgain()">Try Again</button>
+    </div>
+
+    <script>
+        function chooseYes() {
+            document.getElementById('main-page').classList.add('hidden');
+            document.getElementById('yes-page').classList.remove('hidden');
+        }
+
+        function chooseNo() {
+            document.getElementById('main-page').classList.add('hidden');
+            document.getElementById('no-page').classList.remove('hidden');
+        }
+
+        function tryAgain() {
+            document.getElementById('no-page').classList.add('hidden');
+            document.getElementById('main-page').classList.remove('hidden');
+        }
+
+        function comfortYes() {
+            document.getElementById('comfort-question').classList.add('hidden');
+            document.getElementById('final-yes').classList.remove('hidden');
+        }
+
+        function comfortNo() {
+            document.getElementById('comfort-question').classList.add('hidden');
+            document.getElementById('comfort-no').classList.remove('hidden');
+        }
+
+        function backToMain() {
+            document.getElementById('yes-page').classList.add('hidden');
+            document.getElementById('comfort-no').classList.add('hidden');
+            document.getElementById('main-page').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
